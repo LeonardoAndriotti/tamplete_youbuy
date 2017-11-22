@@ -5,9 +5,7 @@ var express = require("express"),
     errorHandler = require('errorhandler'),
     methodOverride = require('method-override'),
     hostname = process.env.HOSTNAME || 'localhost',
-    port = parseInt(process.env.PORT || 3000, function(){
-  console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
-});
+    port = process.env.PORT || 8000;
 app.use(methodOverride());
 
 app.use(bodyParser.json());
