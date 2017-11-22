@@ -1,30 +1,7 @@
-var express = require("express"),
-    app = express(),
-
-    bodyParser = require('body-parser'),
-    errorHandler = require('errorhandler'),
-    methodOverride = require('method-override'),
-    hostname = process.env.HOSTNAME || 'localhost',
-    port = process.env.PORT || 8000;
-app.use(methodOverride());
-
-app.use(bodyParser.json());
-
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
-
-app.use(express.static(__dirname + '/public'));
-
-app.use(errorHandler({
-    dumpExceptions: true,
-    showStack: true
-}));
-
-app.get("/", function (req, res) {
-    res.redirect("/index.html");
-});
-
-console.log("Simple server listening at http://" + hostname + ":" + port);
-
-app.listen(port, hostname);
+var static = require('node-static');
+var file = new static.Server();
+require('http').createServer(function(request, response) {
+  request.addListener('end', function() {
+    file.serve(request, response);
+  }).resume();
+}).listen(process.env.PORT || 3000);
